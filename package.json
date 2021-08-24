@@ -1,0 +1,29 @@
+{
+  "name": "weather",
+  "version": "0.0.1",
+  "description": "An NPM Library used to get weather info",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/grook8958/weather.git"
+  },
+  "keywords": [
+    "weather",
+    "weatherAPI"
+  ],
+  "author": "grook8958",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/grook8958/weather/issues"
+  },
+  "homepage": "https://github.com/grook8958/weather#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  },
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
+}
