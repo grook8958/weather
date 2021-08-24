@@ -2,7 +2,18 @@
   "name": "weather",
   "version": "0.0.1",
   "description": "An NPM Library used to get weather info",
-  "main": "index.js",
+  "main": "./src/index.js",
+  "types": "./typings/index.d.ts",
+  "files": [
+    "src",
+    "typings"
+  ],
+  "exports": {
+    "./*": "./*",
+    ".": {
+      "require": "./src/index.js"
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,7 +23,8 @@
   },
   "keywords": [
     "weather",
-    "weatherAPI"
+    "weatherapi",
+    "api"
   ],
   "author": "grook8958",
   "license": "ISC",
