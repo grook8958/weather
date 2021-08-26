@@ -1,5 +1,9 @@
+'use strict';
 
 const { APILanguages } = require('./Util/Constants');
+//const CurrentWeather = require('./requests/CurrentWeather');
+const Util = require('./Util/Util');
+const { TypeError, RangeError, WeatherError } = require('./errors');
 
 /**
  * Represents a WeatherAPI Client
@@ -17,21 +21,58 @@ class WeatherClient {
      */
 
     /**
+     * Used to verify if an API key is valid
+     * @param {apiKey} key The API key needed to be verified
+     * @return {boolean} True if the key is valid.
+     */
+    
+
+    /**
      * The API key to access the weather API @see{@link https://weatherapi.com/pricing.aspx}
      * @typedef {String} apiKey
      */
-    constructor(apiKey, language) {
+
+    /**
+     * @typedef {Object} WeatherClientOptions
+     * @property {apiKey} apiKey The API key
+     * @property {APILanguage} APILanguage The Language to be used by the API.
+     */
+
+    /**
+     * The Client Constructor
+     * @param {apiKey} apiKey The API key to access the weather API @see{@link https://weatherapi.com/pricing.aspx}
+     * @param {import('./Util/Constants').APILanguage|APILanguageResolvable} language The language to be used by the API
+     */
+    constructor(options = {}) {
+        /**
+         * The options of this WeatherClient
+         * @type {?WeatherClientOptions}
+         */
+        this.options = options
+
         /**
          * The key to access the weather API @see {@link https://weatherapi.}
          * @type {?apiKey}
          */
-        this.apiKey = apiKey;
+        this.apiKey = options.apiKey ?? null;
 
         /**
          * The language to be used by the API
          * @type {?APILanguage}
          */
-        this.APILanguage = WeatherClient.resolveLanguage(language) ?? null;
+        this.APILanguage = options.language ? WeatherClient.resolveLanguage(options.language) : null;
+
+        /**
+         * The CurrentsWeather
+         * @type {CurrentWeather}
+         */
+        this._CurrentWeather = null
+
+        if (!this.apiKey || typeof this.apiKey != 'string') {
+            throw new WeatherError('API_KEY_MISSING');
+        }
+        Util.verifyApiKey(this.apiKey);
+
     }
 
     /**
@@ -66,15 +107,7 @@ class WeatherClient {
         }
     }
 
-    /**
-     * Verifies if the provided API Key is valid
-     * @param {apiKey} apiKey
-     * @returns {?boolean}
-     * @private
-     */
-    static verifyAPIKey(apiKey) {
-        
-    }
+    
 }
 
 //Export the WeatherClient

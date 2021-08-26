@@ -36,6 +36,7 @@
     "nodemon": "^2.0.12"
   },
   "dependencies": {
-    "axios": "^0.21.1"
+    "axios": "^0.21.1",
+    "node-fetch": "^2.6.1"
   }
 }
