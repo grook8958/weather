@@ -1,7 +1,7 @@
 'use strict';
 
-const { APILanguages } = require('./Util/Constants');
-//const CurrentWeather = require('./requests/CurrentWeather');
+const { APILanguage } = require('./Util/Constants');
+const CurrentWeather = require('./requests/CurrentWeather');
 const Util = require('./Util/Util');
 const { TypeError, RangeError, WeatherError } = require('./errors');
 
@@ -33,15 +33,35 @@ class WeatherClient {
      */
 
     /**
-     * @typedef {Object} WeatherClientOptions
-     * @property {apiKey} apiKey The API key
-     * @property {APILanguage} APILanguage The Language to be used by the API.
+     * A location string that can be resolved into a location, can be
+     * * a city name
+     * * Latitude and Longitude
+     * * US Zip code
+     * * UK Postcode
+     * * Cananda postal code
+     * * metar:<metar code>
+     * * iata:<3 digit airport code>
+     * * auto:ip IP lookup
+     * * IP address (IPv4 and IPv6 supported)
+     * @see{@link http://https://www.weatherapi.com/docs/#intro-request}
+     * @typedef {String|number} LocationResolvable
      */
 
     /**
-     * The Client Constructor
-     * @param {apiKey} apiKey The API key to access the weather API @see{@link https://weatherapi.com/pricing.aspx}
-     * @param {import('./Util/Constants').APILanguage|APILanguageResolvable} language The language to be used by the API
+     * @typedef {Object} WeatherClient
+     * @property {WeatherClientOptions} options The options of this client
+     */
+
+    /**
+     * @typedef {Object} WeatherClientOptions
+     * @property {apiKey} apiKey The API key
+     * @property {APILanguage} APILanguage The Language to be used by the API.
+     * @property {LocationResolvable} defaultLocation The default location from wich to get the weather @requires
+     */
+
+    /**
+     * Client constructor used to intantiate a new client, there should only be one intance of this client.
+     * @param {WeatherClientOptions} options The options for this client
      */
     constructor(options = {}) {
         /**
@@ -68,10 +88,9 @@ class WeatherClient {
          */
         this._CurrentWeather = null
 
-        if (!this.apiKey || typeof this.apiKey != 'string') {
-            throw new WeatherError('API_KEY_MISSING');
-        }
-        Util.verifyApiKey(this.apiKey);
+        if (!this.apiKey) throw new WeatherError('API_KEY_MISSING');
+        if (typeof this.apiKey != 'string') throw new TypeError('INVALID_TYPE', 'API key', 'String')
+        Util.validateApiKey(this.apiKey);
 
     }
 
@@ -81,8 +100,19 @@ class WeatherClient {
      * @returns {WeatherClient}
      */
     setLanguage(language) {
+        if (typeof location != String) throw new TypeError('INVALID_TYPE', 'language', 'String or an APILanguageResolvable');
         this.APILanguage = WeatherClient.resolveLanguage(language);
         return this;
+    }
+
+    /**
+     * Set the default location from wich to get the weather
+     * @param {LocationResolvable} location 
+     * @returns {WeatherClient}
+     */
+    setDefaultLocation(location) {
+        if (typeof location != String || typeof location != Number) throw new TypeError('INVALID_TYPE', 'location', 'String or a Number');
+        this.defaultLocation = location
     }
 
     /**
@@ -106,7 +136,6 @@ class WeatherClient {
             return language;
         }
     }
-
     
 }
 
