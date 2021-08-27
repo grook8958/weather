@@ -23,6 +23,36 @@ class Util extends null {
             });
         return true;
     }
+
+    /**
+     * @param {*} key The key to verify
+     * @param {String} name The name of the key
+     * @returns {void|TypeError}
+     */
+    static verifyString(key, name) {
+        if (typeof key != 'string') {
+            throw new TypeError('INVALID_TYPE', name, 'String');
+        }
+    }
+
+    /**
+     * @param {*} key The key to verify
+     * @param {String} name The name of the key
+     * @returns {void|TypeError}
+     */
+    static verifyNumber(key, name) {
+        if (typeof key != 'number') {
+            throw new TypeError('INVALID_TYPE', name, 'Number');
+        }
+    }
+
+    /**
+     * Handles all the errors and reponse of the API
+     * @param {AxiosError} error 
+     */
+    static handleError(error) {  
+        throw new WeatherAPIError(error.response.data, error.response.config)
+    }
 }
 
 module.exports = Util;

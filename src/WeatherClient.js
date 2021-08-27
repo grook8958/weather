@@ -17,15 +17,8 @@ class WeatherClient {
 
     /**
      * @typedef WeatherClient
-     * @property {apiKey} apiKey The key that instantiate this
+     * @property {WeatherClientOptions} options The options of this client
      */
-
-    /**
-     * Used to verify if an API key is valid
-     * @param {apiKey} key The API key needed to be verified
-     * @return {boolean} True if the key is valid.
-     */
-    
 
     /**
      * The API key to access the weather API @see{@link https://weatherapi.com/pricing.aspx}
@@ -74,25 +67,34 @@ class WeatherClient {
          * The key to access the weather API @see {@link https://weatherapi.}
          * @type {?apiKey}
          */
-        this.apiKey = options.apiKey ?? null;
+        this.apiKey = options?.apiKey ?? null;
 
         /**
          * The language to be used by the API
          * @type {?APILanguage}
          */
-        this.APILanguage = options.language ? WeatherClient.resolveLanguage(options.language) : null;
+        this.APILanguage = options?.language ? WeatherClient.resolveLanguage(options.language) : null;
+
+        /**
+         * The default location to be used by the API to get weather data
+         * @type {?Location}
+         */
+        this.defaultLocation = options?.location ?? null;
 
         /**
          * The CurrentsWeather
          * @type {CurrentWeather}
          */
-        this._CurrentWeather = null
+        this._CurrentWeather = new CurrentWeather(this).get(options.defaultLocation);
 
         if (!this.apiKey) throw new WeatherError('API_KEY_MISSING');
         if (typeof this.apiKey != 'string') throw new TypeError('INVALID_TYPE', 'API key', 'String')
         Util.validateApiKey(this.apiKey);
 
     }
+
+    //WeatherClient.current.weather
+    get current() { return this._CurrentWeather }
 
     /**
      * Set the language to be used by the API
