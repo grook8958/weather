@@ -50,9 +50,9 @@ function createEnum(keys) {
  * * `XIANG`
  * * `YUE (Cantonese)`
  * * `ZULU` 
- * @typedef {string} APILanguage
+ * @typedef {string} Language
  */
-exports.APILanguages = createEnum([
+exports.Languages = createEnum([
     null,
     'ARABIC',
     'BENGALI',
@@ -97,6 +97,53 @@ exports.APILanguages = createEnum([
 ])
 
 /**
+ * The language code representing a Language
+ * @typedef {number} APILanguageCode
+ */
+exports.APILanguageCodes = { 
+  ARABIC: 'ar',
+  BENGALI:'bn',
+  BULGARIAN: 'bg',
+  CHINESE_SIMPLIFIED:'zh',
+  CHINESE_TRADITIONAL: 'zh_tw',
+  CZECH: 'cs',
+  DANISH: 'da',
+  DUTCH: 'nl',
+  FINISH: 'fi',
+  FRENCH: 'fr',
+  GERMAN: 'de',
+  GREEK: 'el',
+  HINDI: 'hi',
+  HUNGARIAN: 'hu',
+  ITALIAN: 'it',
+  JAPANESE: 'ja',
+  JAVANESE: 'jv',
+  KOREAN: 'ko',
+  MANDARIN: 'zh_cmn',
+  MARATHI: 'mr',
+  POLISH: 'pl',
+  PORTUGESE: 'pt',
+  PUNJABI: 'pa',
+  ROMANIAN: 'ro',
+  RUSSIAN: 'ru',
+  SERBIAN: 'sr',
+  SINHALESE: 'si',
+  SLOVAK: 'sk',
+  SPANISH: 'es',
+  SWEDISH: 'sv',
+  TAMIL: 'ta',
+  TELUGU: 'te',
+  TURKISH: 'tr',
+  UKRAINIAN: 'uk',
+  URDU: 'ur',
+  VIETNAMESE: 'vu',
+  WU: 'zh_wuu',
+  XIANG: 'zh_hsn',
+  YUE: 'zh_yue',
+  ZULU: 'zu'
+}
+
+/**
  * The possible errors that can be encountered when using the API:
  * * API key not provided
  * * Parameter 'q' not provided
@@ -122,6 +169,37 @@ exports.APIErrors = {
 
 /**
  * @typedef {Object} Constants Constants that can be used in an enum or object-like way.
- * @property {APILanguage} APILanguages The language to be used by the API
+ * @property {Language} Languages The language to be used by the API
  * @property {WeatherAPIError} APIErrors All the possible API Errors matching it's error code
+ * @property {APILanguageCode} APILanguageCodes All the language codes matching it's full name
+ * @property {LocationResolvable} LocationResolvable A string or a number that can be resolved into an APILocation
+ * @property {APILocation} APILocation A location object retuned by the API 
+ */
+
+/**
+ * A location string that can be resolved into a location, can be
+ * * a city name
+ * * Latitude and Longitude
+ * * US Zip code
+ * * UK Postcode
+ * * Cananda postal code
+ * * metar:<metar code>
+ * * iata:<3 digit airport code>
+ * * auto:ip IP lookup
+ * * IP address (IPv4 and IPv6 supported)
+ * @see{@link http://https://www.weatherapi.com/docs/#intro-request}
+ * @typedef {String|number} LocationResolvable
+ */
+
+/**
+ * The API Reponse location
+ * @typedef {Object} APILocation
+ * @property {String} name The name of this city
+ * @property {String} region The region in which the city is
+ * @property {String} country The country of this city
+ * @property {Number} latitude The latitude of the location
+ * @property {Number} longitude The longitude of the location
+ * @property {String} timezone The TimeZone Identifier of this location (e.g Europe/London)
+ * @property {Number} local_time_epoch The local time epoc (e.g 1630076214)
+ * @property {Number} local_time The local_time of the location (e.g 2021-08-27 15:56)
  */
