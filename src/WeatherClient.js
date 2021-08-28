@@ -1,7 +1,7 @@
 'use strict';
 
 const { APILanguage } = require('./Util/Constants');
-const CurrentWeather = require('./requests/CurrentWeather');
+const CurrentWeather = require('./structures/CurrentWeather');
 const Util = require('./Util/Util');
 const { TypeError, RangeError, WeatherError } = require('./errors');
 
