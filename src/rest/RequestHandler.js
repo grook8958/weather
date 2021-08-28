@@ -17,6 +17,7 @@ module.exports = async (request) => {
 
     //Add all params to URL
     for (const param of request.params) {
+        if (request.params.length === 0) continue;
         Util.verifyString(param, `Request Parameter #${request.params.indexOf(param)}`);
         baseUrl += `&${param}`;
     }
