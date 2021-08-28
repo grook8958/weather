@@ -142,10 +142,6 @@ class CurrentWeather {
          */
         this._apiResponse = null;
 
-        Object.defineProperty(this.current, 'timezone', { get: function() { return this.current.tz_id}});
-        Object.defineProperty(this.current, 'gb_defra_index', { get: function() { return this.current.aqi['gb-defra-index']}});
-        Object.defineProperty(this.current, 'us_epa_index', { get: function() { return this.current.aqi['us-epa-index']}});
-
     }
 
     /**
@@ -177,6 +173,11 @@ class CurrentWeather {
 
         this.location = response.data.location;
         this.current = response.data.current;
+
+        Object.defineProperty(this.current, 'timezone', { get: function() { return this.current.tz_id}});
+        Object.defineProperty(this.current, 'gb_defra_index', { get: function() { return this.current.aqi['gb-defra-index']}});
+        Object.defineProperty(this.current, 'us_epa_index', { get: function() { return this.current.aqi['us-epa-index']}});
+
         return this._apiResponse = response;
         
 
