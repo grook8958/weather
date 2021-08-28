@@ -3,7 +3,7 @@
 const axios = require('axios');
 const { APIErrors } = require('./Constants');
 const { Error, TypeError, RangeError } = require('../errors');
-const WeatherAPIError = require('../errors/api/WeatherAPIError')
+const WeatherAPIError = require('../rest/WeatherAPIError');
 
 
 /**
@@ -51,7 +51,7 @@ class Util extends null {
      * @param {String} name The name of the key
      * @returns {void|TypeError}
      */
-     static verifyObject(key, name) {
+    static verifyObject(key, name) {
         if (typeof key != 'object') {
             throw new TypeError('INVALID_TYPE', name, 'Object');
         }
@@ -62,10 +62,27 @@ class Util extends null {
      * @param {String} name The name of the key
      * @returns {void|TypeError}
      */
-     static verifyArray(key, name) {
+    static verifyArray(key, name) {
         if (typeof key != 'array') {
             throw new TypeError('INVALID_TYPE', name, 'Array');
         }
+    }
+
+    /**
+     * 
+     * @param {Object} object 
+     * @param {*} value 
+     * @returns {*|boolean} Returns the property of the value, or false if it doesn't exist
+     */
+    static getPropertyOfValue(object, value) {
+        Util.verifyObject(object, 'Object to get property from');
+        const arrayOfProperties = Object.keys(object);
+        for (const property of arrayOfProperties) {
+            if (object[property] === value) {
+                return property;
+            }
+        }
+        return false;
     }
 
 }
