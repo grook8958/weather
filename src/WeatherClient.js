@@ -1,9 +1,10 @@
 'use strict';
 
-const { APILanguage } = require('./Util/Constants');
+const { Languages, Language, APILanguageCode, LocationResolvable, APILanguageCodes, APILocation } = require('./Util/Constants');
 const CurrentWeather = require('./structures/CurrentWeather');
 const Util = require('./Util/Util');
 const { TypeError, RangeError, WeatherError } = require('./errors');
+const handleRequest = require('./rest/RequestHandler');
 
 /**
  * Represents a WeatherAPI Client
@@ -26,21 +27,6 @@ class WeatherClient {
      */
 
     /**
-     * A location string that can be resolved into a location, can be
-     * * a city name
-     * * Latitude and Longitude
-     * * US Zip code
-     * * UK Postcode
-     * * Cananda postal code
-     * * metar:<metar code>
-     * * iata:<3 digit airport code>
-     * * auto:ip IP lookup
-     * * IP address (IPv4 and IPv6 supported)
-     * @see{@link http://https://www.weatherapi.com/docs/#intro-request}
-     * @typedef {String|number} LocationResolvable
-     */
-
-    /**
      * @typedef {Object} WeatherClient
      * @property {WeatherClientOptions} options The options of this client
      */
@@ -48,7 +34,7 @@ class WeatherClient {
     /**
      * @typedef {Object} WeatherClientOptions
      * @property {apiKey} apiKey The API key
-     * @property {APILanguage} APILanguage The Language to be used by the API.
+     * @property {Language} APILanguage The Language to be used by the API.
      * @property {LocationResolvable} defaultLocation The default location from wich to get the weather @requires
      */
 
@@ -71,9 +57,9 @@ class WeatherClient {
 
         /**
          * The language to be used by the API
-         * @type {?APILanguage}
+         * @type {?Language}
          */
-        this.APILanguage = options?.language ? WeatherClient.resolveLanguage(options.language) : null;
+        this.language = options?.language ? WeatherClient.resolveLanguage(options.language) : null;
 
         /**
          * The default location to be used by the API to get weather data
@@ -96,14 +82,18 @@ class WeatherClient {
     //WeatherClient.current.weather
     get current() { return this._CurrentWeather }
 
+    get language() {
+        return Util.getPropertyOfValue(APILanguageCodes, this.language) ? Util.getPropertyOfValue(APILanguageCodes, this.language) : null;
+    }
+
     /**
      * Set the language to be used by the API
-     * @param {APILanguageResolvable} language The language to be used by the API
+     * @param {LanguageResolvable} language The language to be used by the API
      * @returns {WeatherClient}
      */
     setLanguage(language) {
-        if (typeof location != String) throw new TypeError('INVALID_TYPE', 'language', 'String or an APILanguageResolvable');
-        this.APILanguage = WeatherClient.resolveLanguage(language);
+        if (typeof location != String) throw new TypeError('INVALID_TYPE', 'language', 'String or an LanguageResolvable');
+        this.language = WeatherClient.resolveLanguage(language);
         return this;
     }
 
@@ -113,29 +103,48 @@ class WeatherClient {
      * @returns {WeatherClient}
      */
     setDefaultLocation(location) {
-        if (typeof location != String || typeof location != Number) throw new TypeError('INVALID_TYPE', 'location', 'String or a Number');
-        this.defaultLocation = location
+        this.defaultLocation = WeatherClient.resolveLocation(location);
     }
 
     /**
      * Data that can be resolved to an APILanguage. This can be
      * * APILanguage
      * * string
-     * @typedef {string|APILanguage} APILanguageResolvable
-     */
+     * @typedef {string|APILanguage} LanguageResolvable
+     */  
 
     /**
      * Resolve the language option
-     * @param {APILanguageResolvable} language 
-     * @returns {APILanguage}
+     * @param {LanguageResolvable} language 
+     * @returns {APILanguageCode}
      * @private
      */
     static resolveLanguage(language) {
         const split = language.split('');
         if (split.length > 6 && split[0] != 'z' && split[1] != 'h') {
-            return APILanguages[language];
+            const lng = Languages[language];
+            return APILanguageCode[lng];
         } else {
             return language;
+        }
+    }
+
+    /**
+     * Resolve the language option
+     * @param {string|number|LocationResolvable} language 
+     * @returns {APILocation}
+     * @private
+     */
+    async static resolveLocation(location) {
+        if (typeof location === 'string') {
+            const req = {
+                path: 'search.json',
+                method: 'GET',
+                key: this.apiKey,
+                params: []
+            }
+            const res = await handleRequest(req);
+            return res.data[0];
         }
     }
     
