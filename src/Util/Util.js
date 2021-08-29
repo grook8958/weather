@@ -63,7 +63,7 @@ class Util extends null {
      * @returns {void|TypeError}
      */
     static verifyArray(key, name) {
-        if (typeof key != 'array') {
+        if (!Array.isArray(key)) {
             throw new TypeError('INVALID_TYPE', name, 'Array');
         }
     }

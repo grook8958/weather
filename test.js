@@ -1,13 +1,12 @@
-const WeatherAPIError = require('./src/errors/api/WeatherAPIError');
+const WeatherClient = require('./src/WeatherClient');
 
-const axios = require('axios');
+const weather = new WeatherClient({
+    apiKey: '43c95c3f35494d7a831154235211308',
+    language: 'FRENCH',
+    defaultLocation: 'London'
+});
 
-(async () => {
-    await axios.get('http://api.weatherapi.com/v1/current.json?key=abcd&q=London&aqi=no')
-        .catch((error) => {
-            console.error(error.response.data)
-            throw new WeatherAPIError(error.response.data, error.response.config)
-        })
-    
-    
-})()
+
+weather.on('ready', () => {
+    console.log(weather.current)
+}) 

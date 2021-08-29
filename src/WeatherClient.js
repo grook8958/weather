@@ -59,7 +59,13 @@ class WeatherClient {
          * The language to be used by the API
          * @type {?Language}
          */
-        this.language = options?.language ? WeatherClient.resolveLanguage(options.language) : null;
+        this.language = options.language;
+
+        /**
+         * The language code for the API
+         * @type {APILanguageCode}
+         */
+        this._language = Util.getPropertyOfValue(APILanguageCodes, this.language) ? Util.getPropertyOfValue(APILanguageCodes, this.language) : null;
 
         /**
          * The default location to be used by the API to get weather data
@@ -71,19 +77,28 @@ class WeatherClient {
          * The CurrentsWeather
          * @type {CurrentWeather}
          */
-        this._CurrentWeather = new CurrentWeather(this).get(options.defaultLocation);
+        this._CurrentWeather = null
 
         if (!this.apiKey) throw new WeatherError('API_KEY_MISSING');
         if (typeof this.apiKey != 'string') throw new TypeError('INVALID_TYPE', 'API key', 'String')
         Util.validateApiKey(this.apiKey);
 
+        WeatherClient.init(this);
+        
     }
 
     //WeatherClient.current.weather
     get current() { return this._CurrentWeather }
 
-    get language() {
-        return Util.getPropertyOfValue(APILanguageCodes, this.language) ? Util.getPropertyOfValue(APILanguageCodes, this.language) : null;
+    /**
+     * 
+     * @param {WeatherClient} client 
+     * @returns
+     * @private 
+     */
+    static async init(client) {
+        this._CurrentWeather = await new CurrentWeather(this).get(client.options.defaultLocation);
+        this.emit('ready');
     }
 
     /**
@@ -135,7 +150,7 @@ class WeatherClient {
      * @returns {APILocation}
      * @private
      */
-    async static resolveLocation(location) {
+    static async resolveLocation(location) {
         if (typeof location === 'string') {
             const req = {
                 path: 'search.json',

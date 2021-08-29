@@ -166,6 +166,17 @@ exports.APIErrors = {
   INTERNAL_APPLICATION_ERROR: 9999
 }
 
+/**
+ * Boolean to words converters:
+ * * true: `yes`
+ * * false: `no`
+ * @typedef {String} booleanConverter
+ */
+exports.booleanConverters = {
+  true: 'yes',
+  false: 'no'
+}
+
 
 /**
  * @typedef {Object} Constants Constants that can be used in an enum or object-like way.
@@ -173,7 +184,8 @@ exports.APIErrors = {
  * @property {WeatherAPIError} APIErrors All the possible API Errors matching it's error code
  * @property {APILanguageCode} APILanguageCodes All the language codes matching it's full name
  * @property {LocationResolvable} LocationResolvable A string or a number that can be resolved into an APILocation
- * @property {APILocation} APILocation A location object retuned by the API 
+ * @property {APILocation} APILocation A location object retuned by the API
+ * @property {booleanConverter} booleanConverters A converter to transform booleans into words 
  */
 
 /**

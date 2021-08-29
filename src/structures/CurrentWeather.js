@@ -3,6 +3,7 @@ const WeatherClient = require('../WeatherClient');
 const { TypeError, WeatherError } = require('../errors');
 const Util = require('../Util/Util');
 const handleRequest = require('../rest/RequestHandler');
+const { booleanConverters } = require('../Util/Constants');
 
 
 /**
@@ -151,7 +152,7 @@ class CurrentWeather {
      * @returns {APIReponseObject} 
      */
     async get(location, aqi = false) {
-        if (typeof location != 'string' || typeof location != 'number') throw new TypeError('INVALID_TYPE', 'location', 'String or a Number');
+        if (typeof location != 'string' && typeof location != 'number') throw new TypeError('INVALID_TYPE', 'location', 'String or a Number');
         if (typeof aqi != 'boolean') throw new TypeError('INVALID_TYPE', 'location', 'String or a Number');
 
         /**
@@ -165,8 +166,8 @@ class CurrentWeather {
         const request = {
             path: 'current.json',
             method: 'GET',
-            key: weatherClient.options.apiKey,
-            params: ['q=location', 'aqi=aqi', `lang=${weatherClient.options.language}`]
+            key: this.client.options.apiKey,
+            params: ['q=location', `aqi=${booleanConverters[aqi]}`, `lang=${this.client._language}`]
         }
 
         const response = await handleRequest(request);
@@ -178,7 +179,7 @@ class CurrentWeather {
         Object.defineProperty(this.current, 'gb_defra_index', { get: function() { return this.current.aqi['gb-defra-index']}});
         Object.defineProperty(this.current, 'us_epa_index', { get: function() { return this.current.aqi['us-epa-index']}});
 
-        return this._apiResponse = response;
+        return this._apiResponse = response.data;
         
 
     }
