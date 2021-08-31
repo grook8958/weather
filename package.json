@@ -1,6 +1,6 @@
 {
-  "name": "weather",
-  "version": "0.0.1",
+  "name": "theweatherapi",
+  "version": "0.0.2",
   "description": "An NPM Library used to get weather info",
   "main": "./src/index.js",
   "types": "./typings/index.d.ts",
@@ -27,7 +27,7 @@
     "api"
   ],
   "author": "grook8958",
-  "license": "ISC",
+  "license": "SEE LICENSE IN LICENSE",
   "bugs": {
     "url": "https://github.com/grook8958/weather/issues"
   },
