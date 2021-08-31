@@ -26,7 +26,6 @@ module.exports = async (request) => {
         baseUrl += `&${param}`;
     }
 
-    console.log(baseUrl)
     //Execute the right request depending on the method
 
     const methods = ['GET', 'POST', 'PATCH', 'DELETE', 'PUT'];

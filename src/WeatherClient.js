@@ -5,11 +5,12 @@ const CurrentWeather = require('./structures/CurrentWeather');
 const Util = require('./Util/Util');
 const { TypeError, RangeError, WeatherError } = require('./errors');
 const handleRequest = require('./rest/RequestHandler');
+const { EventEmitter } = require('events')
 
 /**
  * Represents a WeatherAPI Client
  */
-class WeatherClient {
+class WeatherClient extends EventEmitter {
     /**
      * @name WeatherClient
      * @kind ClientConstructor
@@ -43,6 +44,8 @@ class WeatherClient {
      * @param {WeatherClientOptions} options The options for this client
      */
     constructor(options = {}) {
+        super();
+
         /**
          * The options of this WeatherClient
          * @type {?WeatherClientOptions}
@@ -79,10 +82,6 @@ class WeatherClient {
          */
         this._CurrentWeather = null
 
-        if (!this.apiKey) throw new WeatherError('API_KEY_MISSING');
-        if (typeof this.apiKey != 'string') throw new TypeError('INVALID_TYPE', 'API key', 'String')
-        Util.validateApiKey(this.apiKey);
-
         WeatherClient.init(this);
         
     }
@@ -97,8 +96,13 @@ class WeatherClient {
      * @private 
      */
     static async init(client) {
-        this._CurrentWeather = await new CurrentWeather(this).get(client.options.defaultLocation);
-        this.emit('ready');
+        if (!client.apiKey) throw new WeatherError('API_KEY_MISSING');
+        if (typeof client.apiKey != 'string') throw new TypeError('INVALID_TYPE', 'API key', 'String')
+        Util.validateApiKey(client.apiKey);
+        client._CurrentWeather = await new CurrentWeather(client).get(client.options.defaultLocation);
+        client.emit('ready');
+        
+        
     }
 
     /**

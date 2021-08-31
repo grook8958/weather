@@ -167,7 +167,7 @@ class CurrentWeather {
             path: 'current.json',
             method: 'GET',
             key: this.client.options.apiKey,
-            params: ['q=location', `aqi=${booleanConverters[aqi]}`, `lang=${this.client._language}`]
+            params: [`q=${location ?? this.client.options.defaultLocation}`, `aqi=${booleanConverters[aqi]}`, `lang=${this.client._language}`]
         }
 
         const response = await handleRequest(request);
@@ -179,7 +179,9 @@ class CurrentWeather {
         Object.defineProperty(this.current, 'gb_defra_index', { get: function() { return this.current.aqi['gb-defra-index']}});
         Object.defineProperty(this.current, 'us_epa_index', { get: function() { return this.current.aqi['us-epa-index']}});
 
-        return this._apiResponse = response.data;
+        this._apiResponse = response.data;
+
+        return this;
         
 
     }
