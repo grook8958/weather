@@ -9,6 +9,36 @@ It is easy to use, and it covers 10% of the API, Current Weather only for now (1
 
 # Examples
 
-How to get easily access to the Current Weather:
+How to get easily access the Current Weather:
 
+``` js
+// Import the WeatherClient from the package
+const { WeatherClient } = require('theweatherapi');
+
+// Create a new Instance of the WeatherClient
+const client = new WeatherClient({
+    apiKey: 'some_api_key',
+    language: 'FRENCH',
+    defaultLocation: 'Paris'
+});
+
+//Wait for the WeatherClient to enter Ready state
+client.on('ready', async () => {
+    //Get the current weather from the default location and the location of that weather
+    const weather = client.current.weather;
+    const weatherLocation = client.current.location; 
+
+    //Log the data to the console
+    console.log(`Current Weather of ${client.defaultLocation}:`, weather);
+    console.log(`Current Weather Location of ${client.defaultLocation}:`, weatherLocation);
+
+    //Get the weather from another location with Air Quality Information
+    const currentWeatherData = await client.current.get('London', true);
+
+    //Destructure the weather data into the weather object and location object
+    const { weather2, location2 } = currentWeatherData;
+
+    //Log the results
+    console.log(weather2, location2);
+});
 ```
