@@ -129,7 +129,7 @@ class CurrentWeather {
          * The current weather data
          * @type {APICurrentWeather}
          */
-        this.current = null;
+        this.weather = null;
 
         /**
          * @typedef {Object} APIReponseObject
