@@ -1,3 +1,9 @@
+<p> 
+    <a href="https://www.npmjs.com/package/theweatherapi"><img src="https://img.shields.io/npm/v/theweatherapi?color=green" alt="NPM version" /></a>
+    <a href="https://www.npmjs.com/package/theweatherapi"><img src="https://img.shields.io/npm/dt/theweatherapi?color=blue&label=Dowloads" alt="NPM downloads" /></a>
+    <a href="https://www.weatherapi.com/" title="Free Weather API"><img src='//cdn.weatherapi.com/v4/images/weatherapi_logo.png' alt="Weather data by WeatherAPI.com"></a>
+</p>
+
 # TheWeatherAPI
 
 A package to retrieve weather data from https://www.weatherapi.com/.
@@ -5,7 +11,6 @@ It is easy to use, and it covers 10% of the API, Current Weather only for now (1
 
 # Features
     - Current Weather API
-    - 
 
 # Examples
 
@@ -42,3 +47,17 @@ client.on('ready', async () => {
     console.log(weather2, location2);
 });
 ```
+This is still a beta expect may bugs
+
+## Roadmap
+- [x] Current Weather API
+- [ ] Forecast Weather API
+- [ ] History Weather API
+- [ ] Astronomy API
+- [ ] IP look-up API (not comfirmed)
+- [ ] Time Zone API
+- [ ] Sports API
+
+<p>
+    Powered by <a href="https://www.weatherapi.com/" title="Free Weather API">WeatherAPI.com</a>
+</p>
