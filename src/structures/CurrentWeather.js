@@ -2,7 +2,7 @@ const axios = require('axios');
 const WeatherClient = require('../WeatherClient');
 const { TypeError, WeatherError } = require('../errors');
 const Util = require('../Util/Util');
-const handleRequest = require('../rest/RequestHandler');
+const RequestHandler = require('../rest/RequestHandler');
 const { booleanConverters } = require('../Util/Constants');
 
 
@@ -169,8 +169,8 @@ class CurrentWeather {
             key: this.client.options.apiKey,
             params: [`q=${location ?? this.client.options.defaultLocation}`, `aqi=${booleanConverters[aqi]}`, `lang=${this.client._language}`]
         }
-
-        const response = await handleRequest(request);
+        
+        const response = await RequestHandler.makeRequest(request);
 
         this.location = response.data.location;
         this.current = response.data.current;
