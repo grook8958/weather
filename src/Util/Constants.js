@@ -178,6 +178,8 @@ exports.booleanConverters = {
 }
 
 
+
+
 /**
  * @typedef {Object} Constants Constants that can be used in an enum or object-like way.
  * @property {Language} Languages The language to be used by the API
@@ -185,7 +187,8 @@ exports.booleanConverters = {
  * @property {APILanguageCode} APILanguageCodes All the language codes matching it's full name
  * @property {LocationResolvable} LocationResolvable A string or a number that can be resolved into an APILocation
  * @property {APILocation} APILocation A location object retuned by the API
- * @property {booleanConverter} booleanConverters A converter to transform booleans into words 
+ * @property {booleanConverter} booleanConverters A converter to transform booleans into words
+ * @property {BaseWeatherClientOptions} BaseWeatherClientOptions The options of this client
  */
 
 /**
@@ -214,4 +217,17 @@ exports.booleanConverters = {
  * @property {String} timezone The TimeZone Identifier of this location (e.g Europe/London)
  * @property {Number} local_time_epoch The local time epoc (e.g 1630076214)
  * @property {Number} local_time The local_time of the location (e.g 2021-08-27 15:56)
+ */
+
+/**
+ * @typedef {Object} BaseWeatherClientOptions
+ * @property {apiKey} apiKey The API key
+ * @property {Language} APILanguage The Language to be used by the API.
+ * @property {LocationResolvable} defaultLocation The default location from wich to get the weather @requires
+ */
+
+/**
+ * The API key to access the weather API
+ * @see {@link https://weatherapi.com/pricing.aspx}
+ * @typedef {String} apiKey
  */
