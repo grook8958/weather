@@ -49,7 +49,7 @@ class WeatherClient extends BaseWeatherClient {
          * The options of this WeatherClient
          * @type {?WeatherClientOptions}
          */
-        this.options = options
+        this.options = options;
 
         /**
          * The key to access the weather API
@@ -62,7 +62,7 @@ class WeatherClient extends BaseWeatherClient {
          * The language to be used by the API
          * @type {?Language}
          */
-        this.language = options.language;
+        this.language = options.language ?? null;
 
         /**
          * The language code for the API
@@ -78,17 +78,14 @@ class WeatherClient extends BaseWeatherClient {
         this.defaultLocation = options?.location ?? null;
 
         /**
-         * The CurrentsWeather
+         * The last current weather data
          * @type {CurrentWeather}
          */
-        this._CurrentWeather = null
+        this.current = null
 
         WeatherClient.init(this);
         
     }
-
-    //WeatherClient.current.weather
-    get current() { return this._CurrentWeather }
 
     /**
      * 
@@ -100,7 +97,7 @@ class WeatherClient extends BaseWeatherClient {
         if (!client.apiKey || !client.options.apiKey) throw new WeatherError('API_KEY_MISSING');
         if (typeof client.apiKey != 'string') throw new TypeError('INVALID_TYPE', 'API key', 'String')
         Util.validateApiKey(client.apiKey);
-        client._CurrentWeather = await new CurrentWeather(client).get(client.options.defaultLocation);
+        client.current = await new CurrentWeather(client).get(client.options.defaultLocation);
         client.emit('ready');
         
         

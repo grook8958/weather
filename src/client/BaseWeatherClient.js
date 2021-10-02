@@ -1,5 +1,5 @@
 const { EventEmitter } = require('events');
-const { Languages, Language, APILanguageCode, LocationResolvable, APILanguageCodes, APILocation } = require('../Util/Constants');
+const { Languages, Language, APILanguageCode, LocationResolvable, APILanguageCodes, APILocation } = require('../Utils/Constants');
 const { TypeError, RangeError, WeatherError } = require('../errors');
 const RequestHandler = require('../rest/RequestHandler')
 
@@ -43,7 +43,7 @@ class BaseWeatherClient extends EventEmitter {
          * The options of this WeatherClient
          * @type {?BaseWeatherClientOptions}
          */
-         this.options = options
+         this.options = options ?? null;
 
          /**
           * The API to easily make requests to the weather API
