@@ -1,9 +1,8 @@
-const axios = require('axios');
 const WeatherClient = require('../WeatherClient');
-const { TypeError, WeatherError } = require('../errors');
-const Util = require('../Util/Util');
+const { TypeError } = require('../errors');
 const RequestHandler = require('../rest/RequestHandler');
-const { booleanConverters } = require('../Util/Constants');
+const { booleanConverters } = require('../Utils/Constants');
+const Location = require('./Location');
 
 
 /**
@@ -47,22 +46,11 @@ class CurrentWeather {
          */
         this.client = weatherClient;
 
-        /**
-         * The API Reponse location
-         * @typedef {Object} APILocation
-         * @property {String} name The name of this city
-         * @property {String} region The region in which the city is
-         * @property {String} country The country of this city
-         * @property {Number} latitude The latitude of the location
-         * @property {Number} longitude The longitude of the location
-         * @property {String} timezone The TimeZone Identifier of this location (e.g Europe/London)
-         * @property {Number} local_time_epoch The local time epoc (e.g 1630076214)
-         * @property {Number} local_time The local_time of the location (e.g 2021-08-27 15:56)
-         */
+        
 
         /**
          * The location retuned by the API
-         * @type {APILocation}
+         * @type {Location}
          */
         this.location = null
         
@@ -92,7 +80,6 @@ class CurrentWeather {
          * @property {Number} uv The UV index
          * @property {Number} gust_mph The gust speed in miles-per-hours
          * @property {Number} gust_kph The gust speed in kilometers-per-hours
-         * @property {Aqi} aqi The air-quality-information of the location
          */
 
         /**
@@ -132,28 +119,21 @@ class CurrentWeather {
         this.weather = null;
 
         /**
-         * @typedef {Object} APIReponseObject
-         * @property {APILocation}
-         * @property {APICurrentWeather}
+         * The current Air-Quality-Information
+         * @type {Aqi}
          */
-
-        /**
-         * The raw api response object
-         * @type {APIReponseObject}
-         */
-        this._apiResponse = null;
-
+        this.aqi = null;
     }
 
     /**
      * Get the current weather
      * @param {LocationResolvable} location The location to get the weather from.
      * @param {Boolean} aqi Wether to display aqi info or not
-     * @returns {APIReponseObject} 
+     * @returns {CurrentWeather} 
      */
     async get(location, aqi = false) {
         if (typeof location != 'string' && typeof location != 'number') throw new TypeError('INVALID_TYPE', 'location', 'String or a Number');
-        if (typeof aqi != 'boolean') throw new TypeError('INVALID_TYPE', 'location', 'String or a Number');
+        if (typeof aqi != 'boolean') throw new TypeError('INVALID_TYPE', 'aqi', 'Boolean');
 
         /**
          * {
@@ -172,18 +152,21 @@ class CurrentWeather {
         
         const response = await RequestHandler.makeRequest(request);
 
-        this.location = response.data.location;
-        this.current = response.data.current;
-
-        Object.defineProperty(this.current, 'timezone', { get: function() { return this.current.tz_id}});
-        Object.defineProperty(this.current, 'gb_defra_index', { get: function() { return this.current.aqi['gb-defra-index']}});
-        Object.defineProperty(this.current, 'us_epa_index', { get: function() { return this.current.aqi['us-epa-index']}});
-
-        this._apiResponse = response.data;
-
-        return this;
+        this.location = new Location(response.data.location);
         
+        this.weather = response.data.current;
 
+        this.weather.condition.icon = `https:${this.weather.condition.icon}`;
+
+        if (this.weather.air_quality) {
+            Object.defineProperty(this, 'aqi', { value: this.weather.aqi });
+            Object.defineProperty(this.aqi, 'gb_defra_index', { value: this.weather.aqi['gb-defra-index'] });
+            Object.defineProperty(this.aqi, 'us_epa_index', { value: this.weather.aqi['us-epa-index'] });
+
+            //Remove useless properties
+            delete this.weather.aqi;
+        }
+        return this;
     }
 
 }
