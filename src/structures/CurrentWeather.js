@@ -1,4 +1,4 @@
-const WeatherClient = require('../WeatherClient');
+const WeatherClient = require('../client/WeatherClient');
 const { TypeError } = require('../errors');
 const RequestHandler = require('../rest/RequestHandler');
 const { booleanConverters } = require('../Utils/Constants');

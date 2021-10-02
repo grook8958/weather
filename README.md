@@ -30,21 +30,18 @@ const client = new WeatherClient({
 //Wait for the WeatherClient to enter Ready state
 client.on('ready', async () => {
     //Get the current weather from the default location and the location of that weather
-    const weather = client.current.weather;
+    const weatherInfo = client.current.weather;
     const weatherLocation = client.current.location; 
 
     //Log the data to the console
-    console.log(`Current Weather of ${client.defaultLocation}:`, weather);
+    console.log(`Current Weather of ${client.defaultLocation}:`, weatherInfo);
     console.log(`Current Weather Location of ${client.defaultLocation}:`, weatherLocation);
 
     //Get the weather from another location with Air Quality Information
-    const currentWeatherData = await client.current.get('London', true);
-
-    //Destructure the weather data into the weather object and location object
-    const { weather2, location2 } = currentWeatherData;
+    const { weather, location, aqi } = await client.current.get('London', true);
 
     //Log the results
-    console.log(weather2, location2);
+    console.log(weather, location, aqi);
 });
 ```
 This is still a beta expect may bugs

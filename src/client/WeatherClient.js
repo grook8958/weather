@@ -1,8 +1,8 @@
 'use strict';
 
-const { Languages, Language, APILanguageCode, LocationResolvable, APILanguageCodes, APILocation, BaseWeatherClientOptions } = require('../Util/Constants');
+const { Languages, Language, APILanguageCode, LocationResolvable, APILanguageCodes, APILocation, BaseWeatherClientOptions } = require('../Utils/Constants');
 const CurrentWeather = require('../structures/CurrentWeather');
-const Util = require('../Util/Util');
+const Util = require('../Utils/Util');
 const { TypeError, RangeError, WeatherError } = require('../errors');
 const RequestHandler = require('../rest/RequestHandler');
 const BaseWeatherClient = require('./BaseWeatherClient');
@@ -41,8 +41,9 @@ class WeatherClient extends BaseWeatherClient {
     /**
      * Client constructor used to intantiate a new client, there should only be one intance of this client.
      * @param {?WeatherClientOptions} options The options for this client
+     * @param {RequestHandler} api The RequestHandler
      */
-    constructor(options = {}) {
+    constructor(options = {}, api) {
         super(options, api);
 
         /**

@@ -49,7 +49,7 @@ class BaseWeatherClient extends EventEmitter {
           * The API to easily make requests to the weather API
           * @type {RequestHandler}
           */
-         this.api = RequestHandler
+         this.api = RequestHandler;
         
     }
     
@@ -57,7 +57,11 @@ class BaseWeatherClient extends EventEmitter {
      * Destroy the current clietn instance.
      * @returns {null}
      */
-    destroy() {return this = null;}
+    destroy() {
+        this.options = null;
+        this.api = null;
+        return this
+    }
 
     /**
      * Destroys the API key of this client
