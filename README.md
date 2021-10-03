@@ -58,6 +58,10 @@ This is still a beta expect may bugs
 - [ ] Time Zone API
 - [ ] Sports API
 
+## Documentation
+
+Visit [this](./documentation/home.md) page.
+
 <p>
     Powered by <a href="https://www.weatherapi.com/" title="Free Weather API">WeatherAPI.com</a>
 </p>
