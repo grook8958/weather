@@ -1,6 +1,10 @@
 ## TheWeatherAPI Documentation
 
 ### Classes
-- [WeatherClient](./WeatherClient.md)
+- [BaseWeatherClient]()
 - [CurrentWeather](./CurrentWeather)
 - [Forecast]()
+- [RequestHandler]()
+- [Util]()
+- [WeatherAPIError]()
+- [WeatherClient](./WeatherClient.md)
