@@ -4,7 +4,7 @@ const WeatherClient = require('../client/WeatherClient');
 const Location = require('./Location');
 const Alert = require('./Alert');
 const Aqi = require('./Aqi');
-const CurrentWeather = require('./CurrentWeather');
+const CurrentWeather = require('./Current');
 const { ForecastDay, booleanConverters } = require('../Utils/Constants');
 const { LocationResolvable } = require('../Utils/Constants');
 
