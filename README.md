@@ -48,7 +48,7 @@ This is still a beta expect may bugs
 
 ## Roadmap
 - [x] Current Weather API
-- [ ] Forecast Weather API
+- [x] Forecast Weather API
 - [ ] History Weather API
 - [ ] Astronomy API
 - [ ] IP look-up API (not comfirmed)
