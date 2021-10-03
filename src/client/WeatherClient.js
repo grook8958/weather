@@ -1,11 +1,12 @@
 'use strict';
 
 const { Languages, Language, APILanguageCode, LocationResolvable, APILanguageCodes, APILocation, BaseWeatherClientOptions } = require('../Utils/Constants');
-const CurrentWeather = require('../structures/CurrentWeather');
+const CurrentWeather = require('../structures/Current');
 const Util = require('../Utils/Util');
 const { TypeError, RangeError, WeatherError } = require('../errors');
 const RequestHandler = require('../rest/RequestHandler');
 const BaseWeatherClient = require('./BaseWeatherClient');
+const Forecast = require('../structures/Forecast');
 
 
 /**
@@ -63,26 +64,31 @@ class WeatherClient extends BaseWeatherClient {
          * The language to be used by the API
          * @type {?Language}
          */
-        this.language = options.language ?? null;
+        this.language = options?.language ?? null;
 
         /**
          * The language code for the API
          * @type {APILanguageCode}
-         * @private
          */
-        this._language = Util.getPropertyOfValue(APILanguageCodes, this.language) ? Util.getPropertyOfValue(APILanguageCodes, this.language) : null;
+        this._language = Util.getPropertyOfValue(APILanguageCodes, this.language.toUpperCase()) ? Util.getPropertyOfValue(APILanguageCodes, this.language.toUpperCase()) : null;
 
         /**
          * The default location to be used by the API to get weather data
          * @type {?Location}
          */
-        this.defaultLocation = options?.location ?? null;
+        this.defaultLocation = options?.defaultLocation ?? 'Paris';
 
         /**
          * The last current weather data
          * @type {CurrentWeather}
          */
-        this.current = null
+        this.current = null;
+
+        /**
+         * The last forecast weather data
+         * @type {Forecast}
+         */
+        this.forecast = null;
 
         WeatherClient.init(this);
         
@@ -99,6 +105,7 @@ class WeatherClient extends BaseWeatherClient {
         if (typeof client.apiKey != 'string') throw new TypeError('INVALID_TYPE', 'API key', 'String')
         Util.validateApiKey(client.apiKey);
         client.current = await new CurrentWeather(client).get(client.options.defaultLocation);
+        client.forecast = await new Forecast(client).get(client.options.defaultLocation);
         client.emit('ready');
         
         
