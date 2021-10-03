@@ -1,6 +1,15 @@
 
 module.exports = {
-    WeatherClient: require('./WeatherClient'),
-    Constants: require('./Util/Constants')
+    //Clients
+    BaseWeatherClient: require('./client/BaseWeatherClient'),
+    WeatherClient: require('./client/WeatherClient'),
+
+    //Structures
+    CurrentWeather: require('./structures/CurrentWeather'),
+    Location: require('./structures/Location'),
+
+    //Utils
+    Constants: require('./Utils/Constants'),
+    Util: require('./Utils/Util')
     
 };

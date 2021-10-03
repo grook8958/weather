@@ -1,11 +1,12 @@
 'use strict';
 
-const { Languages, Language, APILanguageCode, LocationResolvable, APILanguageCodes, APILocation, BaseWeatherClientOptions } = require('../Util/Constants');
-const CurrentWeather = require('../structures/CurrentWeather');
-const Util = require('../Util/Util');
+const { Languages, Language, APILanguageCode, LocationResolvable, APILanguageCodes, APILocation, BaseWeatherClientOptions } = require('../Utils/Constants');
+const CurrentWeather = require('../structures/Current');
+const Util = require('../Utils/Util');
 const { TypeError, RangeError, WeatherError } = require('../errors');
 const RequestHandler = require('../rest/RequestHandler');
 const BaseWeatherClient = require('./BaseWeatherClient');
+const Forecast = require('../structures/Forecast');
 
 
 /**
@@ -41,15 +42,16 @@ class WeatherClient extends BaseWeatherClient {
     /**
      * Client constructor used to intantiate a new client, there should only be one intance of this client.
      * @param {?WeatherClientOptions} options The options for this client
+     * @param {RequestHandler} api The RequestHandler
      */
-    constructor(options = {}) {
+    constructor(options = {}, api) {
         super(options, api);
 
         /**
          * The options of this WeatherClient
          * @type {?WeatherClientOptions}
          */
-        this.options = options
+        this.options = options;
 
         /**
          * The key to access the weather API
@@ -62,33 +64,35 @@ class WeatherClient extends BaseWeatherClient {
          * The language to be used by the API
          * @type {?Language}
          */
-        this.language = options.language;
+        this.language = options?.language ?? null;
 
         /**
          * The language code for the API
          * @type {APILanguageCode}
-         * @private
          */
-        this._language = Util.getPropertyOfValue(APILanguageCodes, this.language) ? Util.getPropertyOfValue(APILanguageCodes, this.language) : null;
+        this._language = Util.getPropertyOfValue(APILanguageCodes, this.language.toUpperCase()) ? Util.getPropertyOfValue(APILanguageCodes, this.language.toUpperCase()) : null;
 
         /**
          * The default location to be used by the API to get weather data
          * @type {?Location}
          */
-        this.defaultLocation = options?.location ?? null;
+        this.defaultLocation = options?.defaultLocation ?? 'Paris';
 
         /**
-         * The CurrentsWeather
+         * The last current weather data
          * @type {CurrentWeather}
          */
-        this._CurrentWeather = null
+        this.current = null;
+
+        /**
+         * The last forecast weather data
+         * @type {Forecast}
+         */
+        this.forecast = null;
 
         WeatherClient.init(this);
         
     }
-
-    //WeatherClient.current.weather
-    get current() { return this._CurrentWeather }
 
     /**
      * 
@@ -100,7 +104,8 @@ class WeatherClient extends BaseWeatherClient {
         if (!client.apiKey || !client.options.apiKey) throw new WeatherError('API_KEY_MISSING');
         if (typeof client.apiKey != 'string') throw new TypeError('INVALID_TYPE', 'API key', 'String')
         Util.validateApiKey(client.apiKey);
-        client._CurrentWeather = await new CurrentWeather(client).get(client.options.defaultLocation);
+        client.current = await new CurrentWeather(client).get(client.options.defaultLocation);
+        client.forecast = await new Forecast(client).get(client.options.defaultLocation);
         client.emit('ready');
         
         

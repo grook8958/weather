@@ -11,7 +11,7 @@ class RequestHandler extends null {
      */
     static async makeRequest(request) {
         const axios = require('axios');
-        const Util = require('../Util/Util');
+        const Util = require('../Utils/Util');
         const { TypeError, WeatherError, RangeError } = require('../errors');
     
         let baseUrl = 'http://api.weatherapi.com/v1/';
