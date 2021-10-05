@@ -66,6 +66,23 @@ class RequestHandler extends null {
         if (error.response.status === 404) throw new WeatherError('UKNOWN_API_ENDPOINT');
         throw new WeatherAPIError(error.response.data, error.response.config);
     }
+
+    /**
+     * Creates a request object
+     * @param {String} path The API endpoint (ex: forecast.json/.xml)
+     * @param {Object} method The HTTP method (ex:GET)
+     * @param {Array<String>} parameters The HTTP parameters (ex:q=London) 
+     * @param {String} key The API key
+     */
+    static createRequestObj(path, method, parameters = [], key) {
+        return {
+            path,
+            method,
+            params: parameters,
+            key
+        };
+    }
+
 }
 
 module.exports = RequestHandler;
