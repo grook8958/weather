@@ -101,7 +101,7 @@ class CurrentWeather {
          * The current weather data
          * @type {APICurrentWeather}
          */
-        this.weather = data ?? null;
+        this.weather = null;
 
         /**
          * The current Air-Quality-Information

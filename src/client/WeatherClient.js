@@ -35,7 +35,7 @@ class WeatherClient extends BaseWeatherClient {
      * @typedef {Object} WeatherClientOptions
      * @extends {BaseWeatherClientOptions}
      * @property {apiKey} apiKey The API key
-     * @property {Language} APILanguage The Language to be used by the API.
+     * @property {Language|APILanguageCode} language The Language to be used by the API.
      * @property {LocationResolvable} defaultLocation The default location from wich to get the weather @requires
      */
 

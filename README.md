@@ -4,10 +4,12 @@
 </p>
 <a href="https://www.weatherapi.com/" title="Free Weather API"><img src='https://cdn.weatherapi.com/v4/images/weatherapi_logo.png' alt="Weather data by WeatherAPI.com"></a>
 
-# TheWeatherAPI
+# TheWeatherAPI v2!!
 
 A package to retrieve weather data from https://www.weatherapi.com/.
 It is easy to use, and it covers 10% of the API, Current Weather only for now (100% Coming Soon™).
+
+Now v2! Introducing the Forecast API; get the forecast of a location for up to 6 days!
 
 # Features
     - Current Weather API
@@ -44,7 +46,6 @@ client.on('ready', async () => {
     console.log(weather, location, aqi);
 });
 ```
-This is still a beta expect may bugs
 
 ## Roadmap
 - [x] Current Weather API
@@ -57,7 +58,7 @@ This is still a beta expect may bugs
 
 ## Documentation
 
-Visit [this](./documentation/home.md) page.
+Visit [this](./documentation/home.md) page. (Coming Soon™)
 
 <p>
     Powered by <a href="https://www.weatherapi.com/" title="Free Weather API">WeatherAPI.com</a>

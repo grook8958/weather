@@ -98,32 +98,35 @@ class Forecast {
 
     const response = await this.client.api.makeRequest(request);
 
-    this.location = new Location(response.location);
+    this.location = new Location(response.data.location);
     
-    if (response.current.air_quality) {
-      this.aqi = new Aqi(response.current.air_quality);
-      delete response.current.air_quality;
+    if (response.data.current.air_quality) {
+      this.aqi = new Aqi(response.data.current.air_quality);
+      delete response.data.current.air_quality;
     }
 
-    if (response.alerts.alert.length > 0) {
-      for (const alert of response.alerts.alert) {
+    if (response?.data?.alerts?.alert.length > 0) {
+      for (const alert of response.data.alerts.alert) {
         this.alerts.push(new Alert(alert));
       }
     }
 
-    this.currentWeather = response.current;
+    this.currentWeather = response.data.current;
 
-    this.days = response.forecast.forecastday;
+    this.days = response.data.forecast.forecastday;
 
     for (const day of this.days) {
-      day.day.daily_will_it_rain = booleanConverters[daily_will_it_rain];
-      day.day.daily_will_it_snow = booleanConverters[daily_will_it_snow];
+      day.hours = day.hour
+      delete day.hour;
+      day.day.daily_will_it_rain = booleanConverters[day.day.daily_will_it_rain];
+      day.day.daily_will_it_snow = booleanConverters[day.day.daily_will_it_snow];
       for (const hour of day.hours) {
-        hour.is_day = booleanConverters[is_day];
-        hour.will_it_rain = booleanConverters[will_it_rain];
-        hour.will_it_snow = booleanConverters[will_it_snow];
+        hour.is_day = booleanConverters[hour.is_day];
+        hour.will_it_rain = booleanConverters[hour.will_it_rain];
+        hour.will_it_snow = booleanConverters[hour.will_it_snow];
       }
     }
+    return this;
   }
 }
 
