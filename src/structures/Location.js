@@ -75,7 +75,7 @@ class Location {
    * Returns a JSON of object of this class
    * @returns {Object}
    */
-  toJson() {
+  toJSON() {
     const { name, region, country, timezone, timestamp, time} = this;
 
     return {

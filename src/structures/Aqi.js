@@ -87,7 +87,7 @@ class Aqi {
    * Returns a JSON of object of this class
    * @returns {Object}
    */
-  toJson() {
+  toJSON() {
     const { co, o3, no2, so2, pm2_5, pm10, us_epa_index, gb_defra_index } = this;
 
     return {

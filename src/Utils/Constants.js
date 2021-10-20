@@ -229,7 +229,7 @@ exports.booleanConverters = {
 /**
  * @typedef {Object} BaseWeatherClientOptions
  * @property {apiKey} apiKey The API key
- * @property {Language} APILanguage The Language to be used by the API.
+ * @property {Language} language The Language to be used by the API.
  * @property {LocationResolvable} defaultLocation The default location from wich to get the weather @requires
  */
 

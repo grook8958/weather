@@ -111,7 +111,7 @@ class Alert {
    * Returns a JSON of object of this class
    * @returns {Object}
    */
-  toJson() {
+  toJSON() {
     const { headline, messageType, severity, urgency, areas, category, certainty, event, note, effective, expires, description, instruction } = this;
 
     return {
