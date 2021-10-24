@@ -8,6 +8,12 @@ function createEnum(keys) {
     return obj;
 }
 
+function keyMirror(arr) {
+  let tmp = Object.create(null);
+  for (const value of arr) tmp[value] = value;
+  return tmp;
+}
+
 /**
  * The language to be used by the weather API:
  * * `ARABIC`
@@ -52,49 +58,48 @@ function createEnum(keys) {
  * * `ZULU` 
  * @typedef {string} Language
  */
-exports.Languages = createEnum([
-    null,
-    'ARABIC',
-    'BENGALI',
-    'BULGARIAN',
-    'CHINESE_SIMPLIFIED',
-    'CHINESE_TRADITIONAL',
-    'CZECH',
-    'DANISH',
-    'DUTCH',
-    'FINISH',
-    'FRENCH',
-    'GERMAN',
-    'GREEK',
-    'HINDI',
-    'HUNGARIAN',
-    'ITALIAN',
-    'JAPANESE',
-    'JAVANESE',
-    'KOREAN',
-    'MANDARIN',
-    'MARATHI',
-    'POLISH',
-    'PORTUGESE',
-    'PUNJABI',
-    'ROMANIAN',
-    'RUSSIAN',
-    'SERBIAN',
-    'SINHALESE',
-    'SLOVAK',
-    'SPANISH',
-    'SWEDISH',
-    'TAMIL',
-    'TELUGU',
-    'TURKISH',
-    'UKRAINIAN',
-    'URDU',
-    'VIETNAMESE',
-    'WU',
-    'XIANG',
-    'YUE',
-    'ZULU'
-])
+exports.Languages = keyMirror([
+  'ARABIC',
+  'BENGALI',
+  'BULGARIAN',
+  'CHINESE_SIMPLIFIED',
+  'CHINESE_TRADITIONAL',
+  'CZECH',
+  'DANISH',
+  'DUTCH',
+  'FINISH',
+  'FRENCH',
+  'GERMAN',
+  'GREEK',
+  'HINDI',
+  'HUNGARIAN',
+  'ITALIAN',
+  'JAPANESE',
+  'JAVANESE',
+  'KOREAN',
+  'MANDARIN',
+  'MARATHI',
+  'POLISH',
+  'PORTUGESE',
+  'PUNJABI',
+  'ROMANIAN',
+  'RUSSIAN',
+  'SERBIAN',
+  'SINHALESE',
+  'SLOVAK',
+  'SPANISH',
+  'SWEDISH',
+  'TAMIL',
+  'TELUGU',
+  'TURKISH',
+  'UKRAINIAN',
+  'URDU',
+  'VIETNAMESE',
+  'WU',
+  'XIANG',
+  'YUE',
+  'ZULU'
+]);
 
 /**
  * The language code representing a Language

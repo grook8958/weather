@@ -1,6 +1,6 @@
 import {
     APILanguageCode
-} from './enums.d.ts'
+} from './enums'
 
 import { EventEmitter } from 'events'
 
@@ -49,7 +49,7 @@ export class Location {
 }
 
 export class BaseWeatherClient extends EventEmitter {
-    public constructor(options?: BaseWeatherClientOptions);
+    public constructor(options: BaseWeatherClientOptions);
     public options: BaseWeatherClientOptions;
     public api: RequestHandler;
     public destroy(): this;
@@ -58,23 +58,24 @@ export class BaseWeatherClient extends EventEmitter {
 }
 
 export class WeatherClient extends BaseWeatherClient {
-    public constructor(options?: BaseWeatherClientOptions, api: RequestHandler);
-    public options?: BaseWeatherClientOptions;
+    public constructor(options: BaseWeatherClientOptions);
+    public options: BaseWeatherClientOptions;
     public apiKey: apiKey;
     public language: Language;
-    public _language: APILanguageCode[Language]
+    public _language: APILanguageCode
     public defaultLocation: LocationResolvable|APILocation
     public current: Current;
     public forecast: Forecast;
-    public static async init(client: WeatherClient): void;
+    public static init(client: WeatherClient): Promise<void>;
     public setLanguage(language: Language): this;
     public setDefaultLocation(location: LocationResolvable|APILocation): this;
     private static resolveLanguage(language: Language): APILanguageCode|Language;
-    private static async resolveLocation(location: LocationResolvable): Promise<Object>;
-}f
+    private static resolveLocation(location: LocationResolvable): Promise<Object>;
+}
 
 export class RequestHandler extends null {
     public static makeRequest(request: object): Promise<object>
+     
     public static handleError(error: Error): WeatherAPIError
     public static createRequestObj(path: string, method: string, parameters: Array<string>, key: apiKey): object
 }
@@ -126,4 +127,44 @@ export interface BaseWeatherClientOptions {
 
 export type LocationResolvable = string | number;
 export type apiKey = string;
-export type Language = string;
+export type Language = 
+    | 'ARABIC'
+    | 'BENGALI'
+    | 'BULGARIAN'
+    | 'CHINESE_SIMPLIFIED'
+    | 'CHINESE_TRADITIONAL'
+    | 'CZECH'
+    | 'DANISH'
+    | 'DUTCH'
+    | 'FINISH'
+    | 'FRENCH'
+    | 'GERMAN'
+    | 'GREEK'
+    | 'HINDI'
+    | 'HUNGARIAN'
+    | 'ITALIAN'
+    | 'JAPANESE'
+    | 'JAVANESE'
+    | 'KOREAN'
+    | 'MANDARIN'
+    | 'MARATHI'
+    | 'POLISH'
+    | 'PORTUGESE'
+    | 'PUNJABI'
+    | 'ROMANIAN'
+    | 'RUSSIAN'
+    | 'SERBIAN'
+    | 'SINHALESE'
+    | 'SLOVAK'
+    | 'SPANISH'
+    | 'SWEDISH'
+    | 'TAMIL'
+    | 'TELUGU'
+    | 'TURKISH'
+    | 'UKRAINIAN'
+    | 'URDU'
+    | 'VIETNAMESE'
+    | 'WU'
+    |' XIANG'
+    | 'YUE'
+    | 'ZULU';
