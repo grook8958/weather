@@ -43,7 +43,7 @@ class WeatherClient extends BaseWeatherClient {
      * Client constructor used to intantiate a new client, there should only be one intance of this client.
      * @param {?BaseWeatherClientOptions} options The options for this client
      */
-    constructor(options = {}) {
+    constructor(options = {}, api = RequestHandler) {
         super(options, api);
 
         /**
