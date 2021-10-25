@@ -145,8 +145,8 @@ export interface APILocation {
 
 export interface BaseWeatherClientOptions {
     apiKey: apiKey;
-    language: Language;
-    defaultLocation: LocationResolvable|APILocation;
+    language?: Language;
+    defaultLocation?: LocationResolvable|APILocation;
 }
 
 export type LocationResolvable = string | number;
