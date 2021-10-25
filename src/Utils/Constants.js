@@ -201,6 +201,7 @@ exports.booleanConverters = {
  * @property {ForecastDay} ForecastDay The forecastday object
  * @property {APIAlert} APIAlert The API response of the Forecast Alert
  * @property {APIAqi} APIAqi The API response of the Air-Quality-Information
+ * @property {APICurrentWeather} APICurrentWeather The API response for Current Weather
  */
 
 /**
@@ -262,7 +263,7 @@ exports.booleanConverters = {
  * @property {Number} avgtemp_c The average temperature of the day in degrees Celsius
  * @property {Number} avgemp_f The average temperature of the day in Fahrenheit
  * @property {Number} maxwind_mph The maximum wind speed in Miles-per-Hours
- * @property {Number} maxwind_kph The maximum wind speed in Kilometers-per-Hours
+ * @property {Number} maxwind_mph The maximum wind speed in Kilometers-per-Hours
  * @property {Number} totalprecip_mm The total precipitation in milimeters
  * @property {Number} totalprecip_in The total precipitation in inches
  * @property {Number} avgvis_km The average visibility in Kilometers 
@@ -363,4 +364,38 @@ exports.booleanConverters = {
  * * 5 means Very Unhealthy
  * * 6 means Hazardous 
  * @property {Number} gb-defra-index	
+ */
+
+/**
+ * The current weather
+ * @typedef {Object} APICurrentWeather
+ * @property {Number} last_updated_epoch The epoch of this last update of this weather (e.g 1630075500)
+ * @property {String} last_updated The last time the weather was updated (e.g 2021-08-27 15:45)
+ * @property {Number} temp_c The temperature in degrees Celsius (°C)
+ * @property {Number} temp_f The temperature in degrees Fahrenheit (°F)
+ * @property {Boolean} isDay Wether it's daytime or not
+ * @property {Condition} condition The condition of this weather
+ * @property {Number} wind_mph The wind speed in miles-per-hours
+ * @property {Number} wind_kph The wind speed in kilometers-per-hours
+ * @property {Number} wind_degree The direction of wind in degrees (e.g 340°) * @property {String} wind_direction The direction of the wind formatted North, East, Sout, West (e.g NNW = North North West)
+ * @property {Number} pressure_mb The pressure in millibar
+ * @property {Number} pressure_in The pressure in inches
+ * @property {Number} precip_mm The precipitations in millimeters
+ * @property {Number} precip_in The precipitations in inches
+ * @property {Number} humidity The percentage of humidity (%)
+ * @property {Number} cloud The cloud coverage percentage (%)
+ * @property {Number} feelslike_c The feelslike temperature in degrees Celsius (°C)
+ * @property {Number} feelslike_f The feelslike temperature in degrees Fahrenheit (°F)
+ * @property {Number} vis_km The visibility in kilometers (km)
+ * @property {Number} vis_miles The visibility in miles
+ * @property {Number} uv The UV index
+ * @property {Number} gust_mph The gust speed in miles-per-hours
+ * @property {Number} gust_kph The gust speed in kilometers-per-hours
+ */
+
+/**
+ * @typedef {Object} Condition
+ * @property {String} text The condition as a text (e.g Sunny, Partialy Cloudy, ect...)
+ * @property {String} icon The icon url of this condition
+ * @property {Number} code The code of this condition
  */

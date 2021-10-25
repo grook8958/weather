@@ -4,9 +4,8 @@ const WeatherClient = require('../client/WeatherClient');
 const Location = require('./Location');
 const Alert = require('./Alert');
 const Aqi = require('./Aqi');
-const CurrentWeather = require('./Current');
 const { ForecastDay, booleanConverters } = require('../Utils/Constants');
-const { LocationResolvable } = require('../Utils/Constants');
+const { LocationResolvable, APICurrentWeather } = require('../Utils/Constants');
 
 /**
  * Represents the response from the API of the Forecast
@@ -16,9 +15,8 @@ class Forecast {
   /**
    * The constructor of this class
    * @param {WeatherClient} WeatherClient
-   * @param {Object} data
    */
-  constructor(WeatherClient, data) {
+  constructor(WeatherClient) {
 
     /**
      * The client that instantiated this
@@ -55,7 +53,7 @@ class Forecast {
 
     /**
      * The current weather of the location
-     * @type {CurrentWeather}
+     * @type {APICurrentWeather}
      */
     this.currentWeather = null;
 

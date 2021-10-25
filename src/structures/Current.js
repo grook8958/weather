@@ -9,7 +9,7 @@ const Aqi = require('./Aqi');
 /**
  * Represents the response from the API of the current weather
  */
-class CurrentWeather {
+class Current {
 
     /**
      * A location string that can be resolved into a location, can be
@@ -28,10 +28,10 @@ class CurrentWeather {
 
 
     /**
-     * @param {WeatherClient} weatherClient The WeatherClient
+     * @param {WeatherClient} WeatherClient The WeatherClient
      * @param {Object} data The data 
      */
-    constructor(weatherClient) {
+    constructor(WeatherClient) {
 
         /**
          * Wether it should display Air-Quality-Informations
@@ -45,7 +45,7 @@ class CurrentWeather {
          * @type {WeatherClient}
          * @readonly
          */
-        this.client = weatherClient;
+        this.client = WeatherClient;
 
         
 
@@ -84,14 +84,9 @@ class CurrentWeather {
          */
 
         /**
-         * A string reprensenting an URL leading to an image
-         * @typedef {String} ImageUrl
-         */
-
-        /**
          * @typedef {Object} Condition
          * @property {String} text The condition as a text (e.g Sunny, Partialy Cloudy, ect...)
-         * @property {ImageUrl} icon The icon url of this condition
+         * @property {String} icon The icon url of this condition
          * @property {Number} code The code of this condition
          */
 
@@ -114,7 +109,7 @@ class CurrentWeather {
      * Get the current weather
      * @param {LocationResolvable} location The location to get the weather from.
      * @param {Boolean} aqi Wether to display aqi info or not
-     * @returns {CurrentWeather} 
+     * @returns {Current} 
      */
     async get(location, aqi = false) {
         if (typeof location != 'string' && typeof location != 'number') throw new TypeError('INVALID_TYPE', 'location', 'String or a Number');
@@ -152,4 +147,4 @@ class CurrentWeather {
 
 }
 
-module.exports = CurrentWeather;
+module.exports = Current;
