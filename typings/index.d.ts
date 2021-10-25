@@ -80,6 +80,30 @@ export class RequestHandler extends null {
     public static createRequestObj(path: string, method: string, parameters: Array<string>, key: apiKey): object
 }
 
+export class Current {
+    public constructor(WeatherClient: WeatherClient);
+    public displayAqi: boolean;
+    public client: WeatherClient
+    public location: Location
+    public weather: APICurrentWeather
+    public aqi: Aqi
+    public get(location: LocationResolvable, aqi?: boolean): Promise<Current>;
+}
+
+export class Forecast {
+    public constructor(WeatherClient: WeatherClient);
+    public client: WeatherClient;
+    public location: Location;
+    public displayAqi: boolean;
+    public displayAlerts: boolean;
+    public displayDays: number;
+    public currentWeather: APICurrentWeather;
+    public days: Array<ForecastDay>
+    public alerts: Array<Alert>|null
+    public aqi: Aqi|null
+    public get(location: LocationResolvable, displayDays?: number, aqi?: boolean, displayAlerts?: boolean): Promise<Forecast>;
+}
+
 //#interfaces
 export interface APIAlert {
     headline: string;
@@ -168,3 +192,110 @@ export type Language =
     |' XIANG'
     | 'YUE'
     | 'ZULU';
+
+export interface APICurrentWeather {
+    last_updated_epoch: number;
+    last_updated: string;
+    temp_c: number;
+    temp_f: number;
+    isDay: boolean;
+    condition: Condition;
+    wind_mph: number;
+    wind_kph: number;
+    wind_degree: number;
+    wind_direction: string;
+    pressure_mb: number;
+    pressure_in: number;
+    precip_mm: number;
+    precip_in: number;
+    humidity: number;
+    cloud: number;
+    feelslike_c: number;
+    feelslike_f: number;
+    vis_km: number;
+    vis_miles: number;
+    uv: number;
+    gust_mph: number;
+    gust_kph: number;
+}
+
+export interface Condition {
+    text: string;
+    icon: string;
+    code: number;
+}
+
+export interface ForecastDay {
+    date: string;
+    timestamp: number;
+    day: Day;
+    astro: Astro;
+    hours: Array<Hour>;
+}
+
+export interface Day {
+    maxtemp_c: number;
+    maxtemp_f: number;
+    mintemp_c: number;
+    minemp_f: number;
+    avgtemp_c: number;
+    avgtemp_f: number;
+    maxwind_mph: number;
+    maxwind_mph: number;
+    totalprecip_mm: number;
+    totalprecip_in: number;
+    avgvis_km: number;
+    avgvis_miles: number;
+    avghumidity: number;
+    daily_will_it_rain: boolean;
+    daily_chance_of_rain: number;
+    daily_will_it_snow: boolean;
+    daily_chance_of_snow: number;
+    condition: Condition
+    uv: number;
+}
+
+export interface Astro {
+    sunrise: string;
+    sunset: string;
+    moonrise: string;
+    moonset: string;
+    moon_phase: string;
+    moon_illumination: number;
+}
+
+export interface Hour {
+    timestamp: number;
+    time: string;
+    temp_c: number;
+    temp_f: number;
+    is_day: boolean;
+    condition: Condition;
+    wind_mph: number;
+    wind_kph: number;
+    wind_degree: number;
+    wind_dir: string;
+    pressure_mb: number;
+    pressure_in: number;
+    precip_mm: number;
+    precip_in: number;
+    humidity: number;
+    cloud: number;
+    feelslike_c: number;
+    feelslike_f: number;
+    windchill_c: number;
+    windchill_f: number;
+    heatindex_c: number;
+    heatindex_f: number;
+    dewpoint_c: number;
+    dewpoint_f: number;
+    will_it_rain: boolean;
+    chance_of_rain: number;
+    will_it_snow: boolean;
+    chance_of_snow: number;
+    vis_km: number;
+    vis_miles: number;
+    gust_mph: number;
+    gust_kph: number;
+    uv: number;
+}
