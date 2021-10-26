@@ -11,55 +11,55 @@ const IPAPI = require('./api/IPAPI');
  * A handler to make correct API calls
  */
 class RequestHandler {
-    constructor()
-    /**
-     * The Search API
-     * @type {SearchAPI}
-     */
-    search = new SearchAPI();
+    constructor() {
+        /**
+         * The Search API
+         * @type {SearchAPI}
+         */
+        this.search = new SearchAPI();
 
-    /**
-     * The Forecast API
-     * @type {ForecastAPI}
-     */
-    forecast = new ForecastAPI();
+        /**
+         * The Forecast API
+         * @type {ForecastAPI}
+         */
+        this.forecast = new ForecastAPI();
 
-    /**
-     * The Current API
-     * @type {CurrentAPI}
-     */
-    current = new CurrentAPI();
+        /**
+         * The Current API
+         * @type {CurrentAPI}
+         */
+        this.current = new CurrentAPI();
 
-    /**
-     * The Current API
-     * @type {AstronomyAPI}
-     */
-    astronomy = new AstronomyAPI();
+        /**
+         * The Current API
+         * @type {AstronomyAPI}
+         */
+        this.astronomy = new AstronomyAPI();
 
-    /**
-     * The Current API
-     * @type {SportsAPI}
-     */
-    sports = new SportsAPI();
+        /**
+         * The Current API
+         * @type {SportsAPI}
+         */
+        this.sports = new SportsAPI();
 
-    /**
-     * The Current API
-     * @type {HistoryAPI}
-     */
-    history = new HistoryAPI();
+        /**
+         * The Current API
+         * @type {HistoryAPI}
+         */
+        this.history = new HistoryAPI();
 
-     /**
-     * The Current API
-     * @type {TimezoneAPI}
-     */
-    timezone = new TimezoneAPI();
+         /**
+         * The Current API
+         * @type {TimezoneAPI}
+         */
+        this.timezone = new TimezoneAPI();
 
-    /**
-     * The Current API
-     * @type {IPAPI}
-     */
-    ip = new IPAPI();
-
+        /**
+         * The Current API
+         * @type {IPAPI}
+         */
+        this.ip = new IPAPI();
+    }
 
     /**
      * Makes a request to the specified API endpoint.
