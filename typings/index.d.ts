@@ -73,18 +73,19 @@ export class WeatherClient extends BaseWeatherClient {
     private static resolveLocation(location: LocationResolvable): Promise<Object>;
 }
 
-export class RequestHandler extends null {
-    public static forecast: ForecastAPI;
-    public static current: CurrentAPI;
-    public static timezone: TimezoneAPI;
-    public static history: HistoryAPI;
-    public static astronomy: AstronomyAPI;
-    public static search: SearchAPI;
-    public static ip: IPAPI;
-    public static sports: SportsAPI;
-    public static makeRequest(request: object): Promise<object>
-    public static handleError(error: Error): WeatherAPIError
-    public static createRequestObj(path: string, method: string, parameters: Array<string>, key: apiKey): object
+export class RequestHandler {
+    public constructor();
+    public forecast: ForecastAPI;
+    public current: CurrentAPI;
+    public timezone: TimezoneAPI;
+    public history: HistoryAPI;
+    public astronomy: AstronomyAPI;
+    public search: SearchAPI;
+    public ip: IPAPI;
+    public sports: SportsAPI;
+    public makeRequest(request: object): Promise<object>
+    public handleError(error: Error): WeatherAPIError
+    public createRequestObj(path: string, method: string, parameters: Array<string>, key: apiKey): object
 
 
 }

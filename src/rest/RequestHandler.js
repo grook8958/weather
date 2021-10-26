@@ -9,57 +9,56 @@ const IPAPI = require('./api/IPAPI');
 
 /**
  * A handler to make correct API calls
- * @extends null
  */
-class RequestHandler extends null {
-
+class RequestHandler {
+    constructor()
     /**
      * The Search API
      * @type {SearchAPI}
      */
-    static search = new SearchAPI();
+    search = new SearchAPI();
 
     /**
      * The Forecast API
      * @type {ForecastAPI}
      */
-    static forecast = new ForecastAPI();
+    forecast = new ForecastAPI();
 
     /**
      * The Current API
      * @type {CurrentAPI}
      */
-    static current = new CurrentAPI();
+    current = new CurrentAPI();
 
     /**
      * The Current API
      * @type {AstronomyAPI}
      */
-     static astronomy = new AstronomyAPI();
+    astronomy = new AstronomyAPI();
 
     /**
      * The Current API
      * @type {SportsAPI}
      */
-    static sports = new SportsAPI();
+    sports = new SportsAPI();
 
     /**
      * The Current API
      * @type {HistoryAPI}
      */
-    static history = new HistoryAPI();
+    history = new HistoryAPI();
 
      /**
      * The Current API
      * @type {TimezoneAPI}
      */
-    static timezone = new TimezoneAPI();
+    timezone = new TimezoneAPI();
 
     /**
      * The Current API
      * @type {IPAPI}
      */
-    static ip = new IPAPI();
+    ip = new IPAPI();
 
 
     /**
@@ -67,7 +66,7 @@ class RequestHandler extends null {
      * @param {object} request The request object.
      * @return {object} Request response object.
      */
-    static async makeRequest(request) {
+    async makeRequest(request) {
         const axios = require('axios');
         const Util = require('../Utils/Util');
         const { TypeError, WeatherError, RangeError } = require('../errors');
@@ -117,7 +116,7 @@ class RequestHandler extends null {
      * Handles the API error and throws a new one accordingly
      * @param {Object} error The error object returned by Axios
      */
-    static handleError(error) {
+    handleError(error) {
         const WeatherAPIError = require('./WeatherAPIError');
         const { TypeError, WeatherError, RangeError } = require('../errors');
     
@@ -132,7 +131,7 @@ class RequestHandler extends null {
      * @param {Array<String>} parameters The HTTP parameters (ex:q=London) 
      * @param {String} key The API key
      */
-    static createRequestObj(path, method, parameters = [], key) {
+    createRequestObj(path, method, parameters = [], key) {
         return {
             path,
             method,
