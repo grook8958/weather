@@ -13,6 +13,7 @@ Now v2! Introducing the Forecast API; get the forecast of a location for up to 6
 
 # Features
     - Current Weather API
+    - Forecast Weather API
 
 # Examples
 

@@ -74,10 +74,60 @@ export class WeatherClient extends BaseWeatherClient {
 }
 
 export class RequestHandler extends null {
+    public static forecast: ForecastAPI;
+    public static current: CurrentAPI;
+    public static timezone: TimezoneAPI;
+    public static history: HistoryAPI;
+    public static astronomy: AstronomyAPI;
+    public static search: SearchAPI;
+    public static ip: IPAPI;
+    public static sports: SportsAPI;
     public static makeRequest(request: object): Promise<object>
-     
     public static handleError(error: Error): WeatherAPIError
     public static createRequestObj(path: string, method: string, parameters: Array<string>, key: apiKey): object
+
+
+}
+
+export class BaseAPI {
+    public constructor();
+    public get(params: object, format: string, endpoint?: string): Promise<object>;
+}
+
+export class ForecastAPI extends BaseAPI {
+    public constructor();
+}
+
+export class CurrentAPI extends BaseAPI {
+    public constructor();
+}
+
+export class TimezoneAPI extends BaseAPI {
+    public constructor();
+}
+
+export class HistoryAPI extends BaseAPI {
+    public constructor();
+}
+
+export class AstronomyAPI extends BaseAPI {
+    public constructor();
+}
+
+export class SearchAPI extends BaseAPI {
+    public constructor();
+}
+
+export class IPAPI extends BaseAPI {
+    public constructor();
+}
+
+export class SportsAPI extends BaseAPI {
+    public constructor();
+}
+
+export class WeatherAPIError extends Error {
+    public constructor(error: object, requestOptions: object, message: string);
 }
 
 export class Current {
@@ -241,7 +291,7 @@ export interface Day {
     avgtemp_c: number;
     avgtemp_f: number;
     maxwind_mph: number;
-    maxwind_mph: number;
+    maxwind_kph: number;
     totalprecip_mm: number;
     totalprecip_in: number;
     avgvis_km: number;
