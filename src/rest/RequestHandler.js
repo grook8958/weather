@@ -11,62 +11,62 @@ const IPAPI = require('./api/IPAPI');
  * A handler to make correct API calls
  */
 class RequestHandler {
-    constructor() {
-        /**
-         * The Search API
-         * @type {SearchAPI}
-         */
-        this.search = new SearchAPI();
+    
+    /**
+     * The Search API
+     * @type {SearchAPI}
+     */
+    static search = new SearchAPI();
 
-        /**
-         * The Forecast API
-         * @type {ForecastAPI}
-         */
-        this.forecast = new ForecastAPI();
+    /**
+     * The Forecast API
+     * @type {ForecastAPI}
+     */
+    static forecast = new ForecastAPI();
 
-        /**
-         * The Current API
-         * @type {CurrentAPI}
-         */
-        this.current = new CurrentAPI();
+    /**
+     * The Current API
+     * @type {CurrentAPI}
+     */
+    static current = new CurrentAPI();
 
-        /**
-         * The Current API
-         * @type {AstronomyAPI}
-         */
-        this.astronomy = new AstronomyAPI();
+    /**
+     * The Current API
+     * @type {AstronomyAPI}
+     */
+    static astronomy = new AstronomyAPI();
 
-        /**
-         * The Current API
-         * @type {SportsAPI}
-         */
-        this.sports = new SportsAPI();
+    /**
+     * The Current API
+     * @type {SportsAPI}
+     */
+    static sports = new SportsAPI();
 
-        /**
-         * The Current API
-         * @type {HistoryAPI}
-         */
-        this.history = new HistoryAPI();
+    /**
+     * The Current API
+     * @type {HistoryAPI}
+     */
+    static history = new HistoryAPI();
 
-         /**
-         * The Current API
-         * @type {TimezoneAPI}
-         */
-        this.timezone = new TimezoneAPI();
+    /**
+     * The Current API
+     * @type {TimezoneAPI}
+     */
+    static timezone = new TimezoneAPI();
 
-        /**
-         * The Current API
-         * @type {IPAPI}
-         */
-        this.ip = new IPAPI();
-    }
+    /**
+     * The Current API
+     * @type {IPAPI}
+     */
+    static ip = new IPAPI();
+    
 
     /**
      * Makes a request to the specified API endpoint.
      * @param {object} request The request object.
      * @return {object} Request response object.
      */
-    async makeRequest(request) {
+    static async makeRequest(request) {
         const axios = require('axios');
         const Util = require('../Utils/Util');
         const { TypeError, WeatherError, RangeError } = require('../errors');
@@ -116,7 +116,7 @@ class RequestHandler {
      * Handles the API error and throws a new one accordingly
      * @param {Object} error The error object returned by Axios
      */
-    handleError(error) {
+    static handleError(error) {
         const WeatherAPIError = require('./WeatherAPIError');
         const { TypeError, WeatherError, RangeError } = require('../errors');
     
@@ -131,7 +131,7 @@ class RequestHandler {
      * @param {Array<String>} parameters The HTTP parameters (ex:q=London) 
      * @param {String} key The API key
      */
-    createRequestObj(path, method, parameters = [], key) {
+    static createRequestObj(path, method, parameters = [], key) {
         return {
             path,
             method,

@@ -25,10 +25,10 @@ class BaseAPI {
 
         //Check if values are the correct types
         Util.verifyString(endpoint1, 'Endpoint must be a string');
-        const endpoints = ['search', 'forecast', 'current'];
+        const endpoints = ['search', 'forecast', 'current', 'history', 'timezone', 'sports', 'ip', 'astronomy'];
         if (!endpoints.includes(endpoint1)) {throw new RangeError('UKNOWN_API_ENDPOINT');}
         const formats = ['json', 'xml'];
-        if (!formats.includes(format.toLowerCase())) {throw new TypeError('INVALID_FORMAT')}
+        if (!formats.includes(format.toLowerCase())) {throw new TypeError('UNKNOWN_FORMAT')}
 
         this.baseURL += `${endpoint1}.${format.toLowerCase()}`
 
@@ -52,8 +52,12 @@ class BaseAPI {
 
         //baseURL = http://api.weatherapi.com/v1/current.json?key=somekey&param=somevalue
 
-        const reponse = await axios.get(baseUrl)
-            .catch(error => RequestHandler.handleError(error));
+        const reponse = await axios.get(this.baseURL)
+            .catch(error => {
+                const WeatherAPIError = require('../WeatherAPIError');
+                if (error.response.status === 404) throw new WeatherError('UKNOWN_API_ENDPOINT');
+                throw new WeatherAPIError(error.response.data, error.response.config);
+            });
         return reponse;
 
     }

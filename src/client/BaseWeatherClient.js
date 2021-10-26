@@ -49,7 +49,7 @@ class BaseWeatherClient extends EventEmitter {
           * The API to easily make requests to the weather API
           * @type {RequestHandler}
           */
-         this.api = new RequestHandler();
+         this.api = RequestHandler;
         
     }
     
