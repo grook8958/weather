@@ -1,6 +1,6 @@
 {
   "name": "theweatherapi",
-  "version": "2.0.2",
+  "version": "2.1.2",
   "description": "An NPM Library used to get weather info",
   "main": "./src/index.js",
   "module": "./src/index.mjs",
