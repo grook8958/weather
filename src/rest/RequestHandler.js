@@ -1,9 +1,31 @@
+const CurrentAPI = require('./api/CurrentAPI');
+const ForecastAPI = require('./api/ForecastAPI');
+const SearchAPI = require('./api/SearchAPI');
+
+
 /**
  * A handler to make correct API calls
  * @extends null
  */
 class RequestHandler extends null {
-    
+
+    /**
+     * The Search API
+     * @type {SearchAPI}
+     */
+    static search = new SearchAPI();
+
+    /**
+     * The Forecast API
+     * @type {ForecastAPI}
+     */
+    static forecast = new ForecastAPI();
+
+    /**
+     * The Current API
+     * @type {CurrentAPI}
+     */
+    static current = new CurrentAPI();
     /**
      * Makes a request to the specified API endpoint.
      * @param {object} request The request object.
