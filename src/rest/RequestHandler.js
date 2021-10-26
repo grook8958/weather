@@ -1,7 +1,11 @@
 const CurrentAPI = require('./api/CurrentAPI');
 const ForecastAPI = require('./api/ForecastAPI');
 const SearchAPI = require('./api/SearchAPI');
-
+const AstronomyAPI = require('./api/AstronomyAPI');
+const SportsAPI = require('./api/SportsAPI');
+const HistoryAPI = require('./api/HIstoryAPI');
+const TimezoneAPI = require('./api/TimezoneAPI');
+const IPAPI = require('./api/IPAPI');
 
 /**
  * A handler to make correct API calls
@@ -26,6 +30,38 @@ class RequestHandler extends null {
      * @type {CurrentAPI}
      */
     static current = new CurrentAPI();
+
+    /**
+     * The Current API
+     * @type {AstronomyAPI}
+     */
+     static astronomy = new AstronomyAPI();
+
+    /**
+     * The Current API
+     * @type {SportsAPI}
+     */
+    static sports = new SportsAPI();
+
+    /**
+     * The Current API
+     * @type {HistoryAPI}
+     */
+    static history = new HistoryAPI();
+
+     /**
+     * The Current API
+     * @type {TimezoneAPI}
+     */
+    static timezone = new TimezoneAPI();
+
+    /**
+     * The Current API
+     * @type {IPAPI}
+     */
+    static ip = new IPAPI();
+
+
     /**
      * Makes a request to the specified API endpoint.
      * @param {object} request The request object.

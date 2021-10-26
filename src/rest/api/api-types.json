@@ -38,6 +38,63 @@
                 "json": ".json",
                 "xml": ".xml"
             }
+        },
+        "history": {
+            "method": "GET",
+            "params": {
+                "key": "string",
+                "q": "string",
+                "dt": "string"
+            },
+            "format": {
+                "json": ".json",
+                "xml": ".xml"
+            }
+        },
+        "astronomy": {
+            "method": "GET",
+            "params": {
+                "key": "string",
+                "q": "string",
+                "dt": "string"
+            },
+            "format": {
+                "json": ".json",
+                "xml": ".xml"
+            }
+        },
+        "timezone": {
+            "method": "GET",
+            "params": {
+                "key": "string",
+                "q": "string"
+            },
+            "format": {
+                "json": ".json",
+                "xml": ".xml"
+            }
+        },
+        "sports": {
+            "method": "GET",
+            "params": {
+                "key": "string",
+                "q": "string"
+            },
+            "format": {
+                "json": ".json",
+                "xml": ".xml"
+            }
+        },
+        "ip": {
+            "method": "GET",
+            "params": {
+                "key": "string",
+                "q": "string"
+            },
+            "format": {
+                "json": ".json",
+                "xml": ".xml"
+            }
         }
     }
 }
