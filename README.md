@@ -47,6 +47,21 @@ client.on('ready', async () => {
 });
 ```
 
+## How can I access the APIs that are not implemented using theweatherapi?
+You can use non-implemented APIs using the REST module like this:
+**Note: You will have to know which params to use for the API or refer to api-types.json**
+```js
+//Import the BaseWeatherClient to use it's features without passing any options (using the normal client will throw errors)
+const { BaseWeatherClient } = require('theweatherapi');
+
+//Create a new Instance of the BaseClient
+const baseClient = new BaseWeatherClient();
+
+//Access the search API and make a call to the API
+// WARNING: The data won't be formatted the same, the API module only takes care of the request part.
+const response = await client.api.search.get({key: 'somekey', q: 'Paris'});
+console.log(response);
+```
 ## Roadmap
 - [x] Current Weather API
 - [x] Forecast Weather API
