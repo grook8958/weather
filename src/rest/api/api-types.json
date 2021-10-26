@@ -1,0 +1,43 @@
+{
+    "v1": {
+        "current": {
+            "method": "GET",
+            "params": {
+                "key": "string",
+                "q": "string",
+                "aqi": "string",
+                "lang": "string"
+            },
+            "format": {
+                "json": ".json",
+                "xml": ".xml"
+            }
+        },
+        "forecast": {
+            "method": "GET",
+            "params": {
+                "key": "string",
+                "q": "string",
+                "days": "number",
+                "alerts": "string",
+                "aqi": "string",
+                "lang": "string"
+            },
+            "format": {
+                "json": ".json",
+                "xml": ".xml"
+            }
+        },
+        "search": {
+            "method": "GET",
+            "params": {
+                "key": "string",
+                "q": "string"
+            },
+            "format": {
+                "json": ".json",
+                "xml": ".xml"
+            }
+        }
+    }
+}
