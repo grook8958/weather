@@ -11,7 +11,8 @@ const Messages = {
   UNKNOWN_METHOD: 'Invalid HTTP method was provided, the valid methods are: GET, POST, PUT, DELETE, PATCH',
   METHOD_NOT_ALLOWED: (method) => `HTTPS method "${method}" is not supported`,
 
-  UKNOWN_API_ENDPOINT: 'The specified API endpoint is not available'
+  UKNOWN_API_ENDPOINT: 'The specified API endpoint is not available',
+  UNKNOWN_FORMAT: 'The specified format is invalid'
 };
 
 for (const [name, message] of Object.entries(Messages)) register(name, message);
