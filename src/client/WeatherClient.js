@@ -1,6 +1,6 @@
 'use strict';
 
-const { Languages, Language, APILanguageCode, LocationResolvable, APILanguageCodes, APILocation, BaseWeatherClientOptions } = require('../Utils/Constants');
+const { Language, APILanguageCode, LocationResolvable, APILanguageCodes, APILocation, BaseWeatherClientOptions } = require('../Utils/Constants');
 const CurrentWeather = require('../structures/Current');
 const Util = require('../Utils/Util');
 const { TypeError, RangeError, WeatherError } = require('../errors');
@@ -69,7 +69,7 @@ class WeatherClient extends BaseWeatherClient {
          * The language code for the API
          * @type {APILanguageCode}
          */
-        this._language = Util.getPropertyOfValue(APILanguageCodes, this.language.toUpperCase()) ? Util.getPropertyOfValue(APILanguageCodes, this.language.toUpperCase()) : null;
+        this._language = WeatherClient.resolveLanguage(this.language) ?? null
 
         /**
          * The default location to be used by the API to get weather data
@@ -144,13 +144,7 @@ class WeatherClient extends BaseWeatherClient {
      * @private
      */
     static resolveLanguage(language) {
-        const split = language.split('');
-        if (split.length > 6 && split[0] != 'z' && split[1] != 'h') {
-            const lng = Languages[language];
-            return APILanguageCode[lng];
-        } else {
-            return language;
-        }
+        return APILanguageCodes[language];
     }
 
     /**
