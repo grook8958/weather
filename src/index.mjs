@@ -1,7 +1,6 @@
 import mod from './index.js';
 
 export default mod;
-
 //Clients
 export const BaseWeatherClient = mod.BaseWeatherClient;
 export const WeatherClient = mod.WeatherClient;
