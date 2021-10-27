@@ -55,8 +55,7 @@
             "method": "GET",
             "params": {
                 "key": "string",
-                "q": "string",
-                "dt": "string"
+                "q": "string"
             },
             "format": {
                 "json": ".json",
